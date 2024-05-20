@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <omp.h>
 
-// Multiplicación basada en sumas con OpenMP
+// Multiplicación basada en sumas
 int multiplicacion(int a, int b) {
     int resultado = 0;
     #pragma omp parallel for reduction(+:resultado)
@@ -11,7 +11,7 @@ int multiplicacion(int a, int b) {
     return resultado;
 }
 
-// División basada en restas con OpenMP
+// División basada en restas
 int division(int a, int b) {
     if (b == 0) {
         printf("División por cero no permitida\n");
