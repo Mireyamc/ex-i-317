@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Función para calcular el n-ésimo término de Fibonacci de manera secuencial.
+
 long long fibonacci(int n) {
     if (n <= 1) return n;
     long long a = 0, b = 1, c;
