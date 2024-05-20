@@ -2,32 +2,28 @@
 #include <mpi.h>
 
 int main(int argc, char *argv[]) {
-    int n = 20; // Número de términos (9 en este caso)
+    int n = 20; 
     int a1 = 2; // Primer término
     int d = 2; // Diferencia común
-    int my_rank, num_procs;
+    int mi_rango, num_procs;
 
     MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+    MPI_Comm_rank(MPI_COMM_WORLD, &mi_rango);
     MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
-
-    // Calcular el número de términos asignados a cada proceso
-    int terms_per_process = n / num_procs;
-    int remainder = n % num_procs;
     
-    // Calcular el índice de inicio y fin para este proceso
-    int start_index = my_rank * terms_per_process + 1 ;
-    int end_index = start_index + terms_per_process - 1 ;
-    if (my_rank == num_procs - 1) // Si es el último proceso, ajustar el índice final
-        end_index = n;
+    int terminos_p_procs = n / num_procs;
+    int resto = n % num_procs;
+    
+    int inicio = mi_rango * terminos_p_procs + 1 ;
+    int finr = inicio + terminos_p_procs - 1 ;
+    if (mi_rango == num_procs - 1) 
+        finr = n;
 
-    // Sincronizar la salida
     MPI_Barrier(MPI_COMM_WORLD);
 
-    // Generar los términos de la serie para este proceso y mostrarlos
-    printf("Proceso %d: ", my_rank);
-    for (int i = start_index; i <= end_index; ++i) {
-        int term = a1 + d * (i - 1); // Calcular el término
+    printf("Proceso %d: ", mi_rango);
+    for (int i = inicio; i <= finr; ++i) {
+        int term = a1 + d * (i - 1); 
         printf("%d ", term);
     }
     printf("\n");
